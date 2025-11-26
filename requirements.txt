@@ -1,0 +1,21 @@
+# JUGGERNAUT Platform Dependencies
+# FinalBoss Technology
+
+# Web Framework
+flask>=3.0.0
+flask-cors>=4.0.0
+
+# Cryptography
+# Try to install pqcrypto for real ML-DSA-65 (optional)
+# pqcrypto>=0.1.3  # Uncomment if available
+cryptography>=41.0.0
+
+# Optional: liboqs Python wrapper for real post-quantum crypto
+# oqs>=0.10.0  # Uncomment if available
+
+# Core utilities
+dataclasses-json>=0.6.0
+
+# Development/Testing
+pytest>=7.0.0
+requests>=2.31.0
