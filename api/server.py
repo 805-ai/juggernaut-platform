@@ -24,7 +24,7 @@ from functools import wraps
 # Add parent to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from flask import Flask, request, jsonify, render_template_string, make_response
+from flask import Flask, request, jsonify, render_template_string, make_response, send_from_directory
 
 # Import JUGGERNAUT modules
 from core.emergence import (
@@ -111,6 +111,12 @@ def security_check(f):
 
 @app.route('/')
 def index():
+    """Serve interactive frontend"""
+    static_dir = Path(__file__).parent.parent / 'static'
+    return send_from_directory(static_dir, 'index.html')
+
+@app.route('/api')
+def api_info():
     """API documentation and status"""
     return jsonify({
         'name': 'JUGGERNAUT API',

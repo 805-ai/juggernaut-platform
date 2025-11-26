@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUGGERNAUT - Interactive Demo | FinalBoss Technology</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Courier New', monospace; }
+        .glow { box-shadow: 0 0 20px rgba(124, 58, 237, 0.5); }
+        .result-box {
+            background: #1a1a2e;
+            border: 1px solid #7c3aed;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body class="bg-black text-green-400">
+    <div class="container mx-auto px-4 py-8 max-w-7xl">
+        <!-- Header -->
+        <div class="text-center mb-8 border-2 border-green-400 p-6 glow">
+            <h1 class="text-5xl font-bold mb-2">⚡ JUGGERNAUT INTERACTIVE DEMO</h1>
+            <p class="text-gray-400">Real ML-DSA-65 Post-Quantum Cryptography | Patents US 63/907,140 & 63/909,737</p>
+            <div class="flex justify-center gap-4 mt-4">
+                <span class="bg-purple-600 text-white px-3 py-1 rounded text-sm">FIPS 204</span>
+                <span class="bg-green-600 text-white px-3 py-1 rounded text-sm">QUANTUM-SAFE</span>
+                <span class="bg-blue-600 text-white px-3 py-1 rounded text-sm">PRODUCTION-READY</span>
+            </div>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="grid md:grid-cols-2 gap-6">
+
+            <!-- 1. DUAL VERTICAL EMERGENCE -->
+            <div class="border border-purple-500 p-6 rounded-lg bg-purple-950/20">
+                <h2 class="text-2xl font-bold mb-4 text-purple-400">🔬 Dual Vertical Emergence</h2>
+                <p class="text-gray-400 mb-4 text-sm">Formula: R = v₁×v₂² + (1-v₁)×ln(1-v₂)</p>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm mb-2">Vertical 1 Score (v₁): <span id="v1-display">0.95</span></label>
+                        <input type="range" id="v1-slider" min="0" max="100" value="95"
+                               class="w-full" oninput="updateV1(this.value)">
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-2">Vertical 2 Score (v₂): <span id="v2-display">0.97</span></label>
+                        <input type="range" id="v2-slider" min="0" max="100" value="97"
+                               class="w-full" oninput="updateV2(this.value)">
+                    </div>
+
+                    <button onclick="calculateEmergence()"
+                            class="w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 px-6 rounded glow">
+                        Calculate Emergence
+                    </button>
+
+                    <div id="emergence-result" class="result-box hidden"></div>
+                </div>
+            </div>
+
+            <!-- 2. ML-DSA-65 SIGNING -->
+            <div class="border border-blue-500 p-6 rounded-lg bg-blue-950/20">
+                <h2 class="text-2xl font-bold mb-4 text-blue-400">🔐 ML-DSA-65 Signing</h2>
+                <p class="text-gray-400 mb-4 text-sm">Real post-quantum cryptographic signatures</p>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm mb-2">Message to Sign:</label>
+                        <textarea id="sign-message" rows="3"
+                                  class="w-full bg-black border border-blue-500 rounded p-2 text-green-400"
+                                  placeholder="Enter message to sign...">JUGGERNAUT Demo - FinalBoss Technology</textarea>
+                    </div>
+
+                    <button onclick="signMessage()"
+                            class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 px-6 rounded glow">
+                        Sign Message
+                    </button>
+
+                    <div id="sign-result" class="result-box hidden"></div>
+                </div>
+            </div>
+
+            <!-- 3. RECEIPT MINTING -->
+            <div class="border border-cyan-500 p-6 rounded-lg bg-cyan-950/20">
+                <h2 class="text-2xl font-bold mb-4 text-cyan-400">⛓️ Mint Receipt</h2>
+                <p class="text-gray-400 mb-4 text-sm">Create cryptographic receipt with blockchain chaining</p>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm mb-2">Operation:</label>
+                        <input type="text" id="receipt-operation"
+                               class="w-full bg-black border border-cyan-500 rounded p-2 text-green-400"
+                               placeholder="e.g., autonomous_deployment" value="test_operation">
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-2">Result:</label>
+                        <input type="text" id="receipt-result"
+                               class="w-full bg-black border border-cyan-500 rounded p-2 text-green-400"
+                               placeholder="e.g., SUCCESS" value="Success">
+                    </div>
+
+                    <button onclick="mintReceipt()"
+                            class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 px-6 rounded glow">
+                        Mint Receipt
+                    </button>
+
+                    <div id="receipt-result" class="result-box hidden"></div>
+                </div>
+            </div>
+
+            <!-- 4. DESTRUCTION PROTOCOL -->
+            <div class="border border-red-500 p-6 rounded-lg bg-red-950/20">
+                <h2 class="text-2xl font-bold mb-4 text-red-400">💥 Sub-8ms Destruction</h2>
+                <p class="text-gray-400 mb-4 text-sm">Cryptographic data elimination protocol</p>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm mb-2">Data to Destroy:</label>
+                        <textarea id="destroy-data" rows="3"
+                                  class="w-full bg-black border border-red-500 rounded p-2 text-green-400"
+                                  placeholder="Enter sensitive data...">API_KEY=sk-test-12345</textarea>
+                    </div>
+
+                    <button onclick="destroyData()"
+                            class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-3 px-6 rounded glow">
+                        Execute Destruction
+                    </button>
+
+                    <div id="destroy-result" class="result-box hidden"></div>
+                </div>
+            </div>
+
+            <!-- 5. SECURITY CHECK -->
+            <div class="border border-yellow-500 p-6 rounded-lg bg-yellow-950/20">
+                <h2 class="text-2xl font-bold mb-4 text-yellow-400">🛡️ Security Check</h2>
+                <p class="text-gray-400 mb-4 text-sm">SQL injection, XSS, and attack detection</p>
+
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm mb-2">Input to Check:</label>
+                        <textarea id="security-input" rows="3"
+                                  class="w-full bg-black border border-yellow-500 rounded p-2 text-green-400"
+                                  placeholder="Enter input to validate...">SELECT * FROM users WHERE id=1</textarea>
+                    </div>
+
+                    <button onclick="checkSecurity()"
+                            class="w-full bg-yellow-600 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded glow">
+                        Check Security
+                    </button>
+
+                    <div id="security-result" class="result-box hidden"></div>
+                </div>
+            </div>
+
+            <!-- 6. CHAIN VERIFICATION -->
+            <div class="border border-green-500 p-6 rounded-lg bg-green-950/20">
+                <h2 class="text-2xl font-bold mb-4 text-green-400">✓ Verify Chain</h2>
+                <p class="text-gray-400 mb-4 text-sm">Blockchain-like receipt chain verification</p>
+
+                <div class="space-y-4">
+                    <button onclick="verifyChain()"
+                            class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-6 rounded glow">
+                        Verify Receipt Chain
+                    </button>
+
+                    <button onclick="getRecentReceipts()"
+                            class="w-full bg-green-700 hover:bg-green-600 text-white font-bold py-3 px-6 rounded glow">
+                        Get Recent Receipts
+                    </button>
+
+                    <div id="chain-result" class="result-box hidden"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Live Stats -->
+        <div class="mt-8 border border-purple-500 p-6 rounded-lg bg-purple-950/20">
+            <h2 class="text-2xl font-bold mb-4 text-purple-400">📊 Live System Stats</h2>
+            <button onclick="getStats()"
+                    class="bg-purple-600 hover:bg-purple-500 text-white font-bold py-2 px-6 rounded glow mb-4">
+                Refresh Stats
+            </button>
+            <div id="stats-result" class="result-box"></div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-8 text-gray-600 text-sm">
+            <p>FinalBoss Technology - JUGGERNAUT Platform</p>
+            <p>Patents: US 63/907,140 (Dual Vertical Emergence) | US 63/909,737 (ML-DSA-65 Receipts)</p>
+            <p class="mt-2">© 2025 Abraham Manzano. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = '';
+
+        // Update slider displays
+        function updateV1(val) {
+            document.getElementById('v1-display').textContent = (val / 100).toFixed(2);
+        }
+        function updateV2(val) {
+            document.getElementById('v2-display').textContent = (val / 100).toFixed(2);
+        }
+
+        // Helper to show results
+        function showResult(elementId, data, success = true) {
+            const el = document.getElementById(elementId);
+            el.classList.remove('hidden');
+            el.innerHTML = `<pre class="text-${success ? 'green' : 'red'}-400">${JSON.stringify(data, null, 2)}</pre>`;
+        }
+
+        // 1. Calculate Emergence
+        async function calculateEmergence() {
+            const v1 = parseFloat(document.getElementById('v1-slider').value) / 100;
+            const v2 = parseFloat(document.getElementById('v2-slider').value) / 100;
+
+            try {
+                const response = await fetch(`${API_BASE}/api/emergence/calculate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ v1, v2 })
+                });
+                const data = await response.json();
+                showResult('emergence-result', data);
+            } catch (error) {
+                showResult('emergence-result', { error: error.message }, false);
+            }
+        }
+
+        // 2. Sign Message
+        async function signMessage() {
+            const message = document.getElementById('sign-message').value;
+
+            try {
+                const response = await fetch(`${API_BASE}/api/crypto/sign`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message })
+                });
+                const data = await response.json();
+                showResult('sign-result', data);
+            } catch (error) {
+                showResult('sign-result', { error: error.message }, false);
+            }
+        }
+
+        // 3. Mint Receipt
+        async function mintReceipt() {
+            const operation = document.getElementById('receipt-operation').value;
+            const result = document.getElementById('receipt-result-input') ?
+                          document.getElementById('receipt-result-input').value :
+                          document.getElementById('receipt-result').value;
+
+            try {
+                const response = await fetch(`${API_BASE}/api/receipts/mint`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        operation,
+                        result,
+                        v1_score: 0.95,
+                        v2_score: 0.97
+                    })
+                });
+                const data = await response.json();
+                showResult('receipt-result', data);
+            } catch (error) {
+                showResult('receipt-result', { error: error.message }, false);
+            }
+        }
+
+        // 4. Destroy Data
+        async function destroyData() {
+            const data = document.getElementById('destroy-data').value;
+
+            try {
+                const response = await fetch(`${API_BASE}/api/destruction/execute`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ data, secure_wipe: true })
+                });
+                const result = await response.json();
+                showResult('destroy-result', result);
+            } catch (error) {
+                showResult('destroy-result', { error: error.message }, false);
+            }
+        }
+
+        // 5. Security Check
+        async function checkSecurity() {
+            const input = document.getElementById('security-input').value;
+
+            try {
+                const response = await fetch(`${API_BASE}/api/security/check`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ input })
+                });
+                const data = await response.json();
+                showResult('security-result', data);
+            } catch (error) {
+                showResult('security-result', { error: error.message }, false);
+            }
+        }
+
+        // 6. Verify Chain
+        async function verifyChain() {
+            try {
+                const response = await fetch(`${API_BASE}/api/receipts/chain`);
+                const data = await response.json();
+                showResult('chain-result', data);
+            } catch (error) {
+                showResult('chain-result', { error: error.message }, false);
+            }
+        }
+
+        async function getRecentReceipts() {
+            try {
+                const response = await fetch(`${API_BASE}/api/receipts/recent`);
+                const data = await response.json();
+                showResult('chain-result', data);
+            } catch (error) {
+                showResult('chain-result', { error: error.message }, false);
+            }
+        }
+
+        // Get Stats
+        async function getStats() {
+            try {
+                const [crypto, destruction, security] = await Promise.all([
+                    fetch(`${API_BASE}/api/crypto/status`).then(r => r.json()),
+                    fetch(`${API_BASE}/api/destruction/stats`).then(r => r.json()),
+                    fetch(`${API_BASE}/api/security/stats`).then(r => r.json())
+                ]);
+
+                showResult('stats-result', {
+                    cryptography: crypto,
+                    destruction: destruction,
+                    security: security
+                });
+            } catch (error) {
+                showResult('stats-result', { error: error.message }, false);
+            }
+        }
+
+        // Load stats on page load
+        window.addEventListener('load', () => {
+            getStats();
+        });
+    </script>
+</body>
+</html>
